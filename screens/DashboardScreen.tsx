@@ -115,13 +115,13 @@ export default function DashboardScreen() {
               title="All-Time Bids"
               value={stats.allTimeBids}
               icon="archive"
-              color="#16adc8"
+              color="#ffa554"
             />
             <StatCard
               title="Win Rate"
               value={`${stats.winRate}%`}
               icon="trending-up"
-              color={theme.success}
+              color="#ffa554"
             />
           </View>
           <View style={styles.statsRow}>

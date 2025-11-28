@@ -87,7 +87,7 @@ export function ProjectCard({ project, onPress, onLongPress }: ProjectCardProps)
             {formattedDate}
           </ThemedText>
         </View>
-        <ThemedText type="small" style={[styles.revenue, { color: theme.success }]}>
+        <ThemedText type="small" style={[styles.revenue, { color: "#21b15a" }]}>
           ${project.revenue.toLocaleString()}
         </ThemedText>
       </View>

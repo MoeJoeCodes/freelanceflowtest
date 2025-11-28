@@ -129,13 +129,13 @@ export default function DashboardScreen() {
               title="Monthly Revenue"
               value={`$${stats.monthlyRevenue.toLocaleString()}`}
               icon="dollar-sign"
-              color={theme.success}
+              color="#21b15a"
             />
             <StatCard
               title="All-Time Revenue"
               value={`$${stats.allTimeRevenue.toLocaleString()}`}
               icon="bar-chart-2"
-              color={theme.warning}
+              color="#21b15a"
             />
           </View>
         </View>
@@ -166,7 +166,7 @@ export default function DashboardScreen() {
                 </View>
                 <ThemedText
                   type="small"
-                  style={{ color: theme.success, fontWeight: "600" }}
+                  style={{ color: "#21b15a", fontWeight: "600" }}
                 >
                   ${project.revenue.toLocaleString()}
                 </ThemedText>

@@ -84,7 +84,7 @@ export function ClientCard({ client, onPress }: ClientCardProps) {
         <View style={styles.bottomRow}>
           <Badge type="deal" value={client.dealStage} />
           {client.revenue > 0 ? (
-            <ThemedText type="small" style={[styles.revenue, { color: theme.success }]}>
+            <ThemedText type="small" style={[styles.revenue, { color: "#21b15a" }]}>
               ${client.revenue.toLocaleString()}
             </ThemedText>
           ) : null}

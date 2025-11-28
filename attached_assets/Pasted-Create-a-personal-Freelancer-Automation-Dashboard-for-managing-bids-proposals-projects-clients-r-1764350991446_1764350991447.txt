@@ -1,0 +1,114 @@
+Create a personal Freelancer Automation Dashboard for managing bids, proposals, projects, clients, revenue, and developer resources. The dashboard should be usable as a personal app on desktop and iPhone, ideally with the ability to “Add to Home Screen” like a PWA.
+
+Requirements:
+
+1. Layout
+
+Sidebar navigation on the left
+
+Main content area on the right that displays the selected module
+
+Clean, modern, minimal design
+
+Rounded corners, subtle shadows, responsive layout for mobile and desktop
+
+Light & dark mode support
+
+2. Modules / Features
+A. Dashboard Overview
+
+Stats widgets: Daily Bids, Monthly Bids, All-Time Bids, Monthly Revenue, All-Time Revenue, Win Rate
+
+Optional: top performing proposal templates
+
+Optional charts or graphs
+
+B. Proposal Generator
+
+Text input for job description
+
+Keyword extraction or analysis of the description
+
+Template selector (categories: Design, Admin, Real Estate, BPO, Tutoring)
+
+Generate proposal button that creates a personalised proposal text
+
+Copy-to-clipboard functionality
+
+C. Kanban Board
+
+Columns: To Do, In Progress, Waiting on Client, Revisions, Ready for Delivery, Completed
+
+Draggable or interactive cards
+
+Each card shows project title, client, deadline, revenue, notes
+
+D. CRM / Client Management
+
+Table or list of clients: Name, Contact Info, Deals, Revenue
+
+Deal stages: Lead → Proposal Sent → Negotiation → Won / Lost
+
+Ability to add/edit/delete clients and deals
+
+Follow-up reminders or badges
+
+E. Developer Library
+
+List or grid of developers: Name, Role, Hourly Rate, Profile Link, Notes, Availability Status
+
+Quick access to open their profile or contact
+
+F. Clipboard / Snippet Manager
+
+Save frequently used snippets: Intro messages, Follow-ups, Delivery text, Portfolio blurbs, Quick replies
+
+Categorize snippets for easy access
+
+One-click copy-to-clipboard
+
+3. Bonus Features 
+
+AI proposal optimization
+
+Employer insights panel (client profile analysis)
+
+Quick bid wizard (choose amount, days, template → generate proposal)
+
+Revenue/profit calculator
+
+Daily productivity summary
+
+Global search across all modules
+
+Notifications (follow-ups due, new bids, revenue milestones)
+
+4. Data & Storage
+
+Start with local storage, offline-first approach
+
+Mock initial data for clients, projects, snippets, developers
+
+Each module should be able to read/write data locally
+
+5. Design & Style
+
+Modern, clean, minimal aesthetic
+
+Responsive layout for mobile and desktop
+
+Use cards, tables, grids, hover effects, and visual hierarchy
+
+Color-coded Kanban columns and status indicators
+
+Optional: light/dark toggle
+
+6. Output
+
+Modular, maintainable code
+
+Functional interactive dashboard with all the modules listed above
+
+Ready for local or personal use on desktop and iPhone
+
+Can be enhanced later with AI features, analytics, or backend storage

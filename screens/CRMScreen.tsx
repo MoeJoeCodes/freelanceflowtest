@@ -32,11 +32,15 @@ type DealStageSummary = {
 
 export default function CRMScreen() {
   const { theme } = useTheme();
-  const { clients, projects, expenses, addExpense, deleteExpense } = useDataStore();
+  const { clients, projects, expenses, addProject, addExpense, deleteExpense } = useDataStore();
   const [modalVisible, setModalVisible] = useState(false);
-  const [newAmount, setNewAmount] = useState("");
-  const [newCategory, setNewCategory] = useState<ExpenseCategory>("tools");
-  const [newDescription, setNewDescription] = useState("");
+  const [newProjectName, setNewProjectName] = useState("");
+  const [newProjectAmount, setNewProjectAmount] = useState("");
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const [expenseModalVisible, setExpenseModalVisible] = useState(false);
+  const [newExpenseAmount, setNewExpenseAmount] = useState("");
+  const [newExpenseCategory, setNewExpenseCategory] = useState<ExpenseCategory>("tools");
+  const [newExpenseDescription, setNewExpenseDescription] = useState("");
 
   const crmMetrics = useMemo(() => {
     const dealStageLabels: Record<DealStage, string> = {
@@ -108,8 +112,18 @@ export default function CRMScreen() {
     // Calculate profit (won deals revenue - expenses)
     const totalProfit = wonDealsValue - totalExpenses;
 
-    // Get recent expenses (last 3)
-    const recentExpenses = expenses.slice().reverse().slice(0, 3);
+    // Get recent projects (last 3)
+    const recentProjects = projects.slice().reverse().slice(0, 3).map((p) => {
+      const projectExpenses = expenses.filter((e) => e.projectId === p.id);
+      const projectExpenseTotal = projectExpenses.reduce((sum, e) => sum + e.amount, 0);
+      const projectProfit = p.revenue - projectExpenseTotal;
+      return {
+        ...p,
+        expenses: projectExpenses,
+        expenseTotal: projectExpenseTotal,
+        profit: projectProfit,
+      };
+    });
 
     return {
       stageMetrics,
@@ -120,22 +134,41 @@ export default function CRMScreen() {
       totalClients: clients.length,
       totalExpenses,
       totalProfit,
-      recentExpenses,
+      recentProjects,
     };
-  }, [clients, expenses]);
+  }, [clients, expenses, projects]);
 
-  const handleAddExpense = () => {
-    if (newAmount.trim() && newDescription.trim()) {
-      addExpense({
-        amount: parseFloat(newAmount) || 0,
-        category: newCategory,
-        description: newDescription.trim(),
-        date: new Date().toISOString(),
+  const handleAddProject = () => {
+    if (newProjectName.trim() && newProjectAmount.trim()) {
+      addProject({
+        title: newProjectName.trim(),
+        clientId: "crm",
+        clientName: "CRM Project",
+        deadline: new Date().toISOString(),
+        revenue: parseFloat(newProjectAmount) || 0,
+        notes: "Added from CRM",
+        column: "todo",
       });
-      setNewAmount("");
-      setNewDescription("");
-      setNewCategory("tools");
+      setNewProjectName("");
+      setNewProjectAmount("");
       setModalVisible(false);
+    }
+  };
+
+  const handleAddExpenseToProject = () => {
+    if (newExpenseAmount.trim() && newExpenseDescription.trim() && selectedProjectId) {
+      addExpense({
+        amount: parseFloat(newExpenseAmount) || 0,
+        category: newExpenseCategory,
+        description: newExpenseDescription.trim(),
+        date: new Date().toISOString(),
+        projectId: selectedProjectId,
+        projectTitle: projects.find((p) => p.id === selectedProjectId)?.title,
+      });
+      setNewExpenseAmount("");
+      setNewExpenseDescription("");
+      setNewExpenseCategory("tools");
+      setExpenseModalVisible(false);
     }
   };
 
@@ -284,11 +317,11 @@ export default function CRMScreen() {
           </View>
         </View>
 
-        {/* Expense Logging */}
+        {/* Project Logging */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <ThemedText type="h3" style={styles.sectionTitle}>
-              Log Expenses
+              Log Projects
             </ThemedText>
             <Pressable
               onPress={() => setModalVisible(true)}
@@ -300,43 +333,92 @@ export default function CRMScreen() {
               <Feather name="plus" size={18} color="#FFFFFF" />
             </Pressable>
           </View>
-          {crmMetrics.recentExpenses.length > 0 ? (
+          {crmMetrics.recentProjects.length > 0 ? (
             <View>
-              {crmMetrics.recentExpenses.map((expense) => (
-                <Pressable
-                  key={expense.id}
-                  onPress={() => deleteExpense(expense.id)}
+              {crmMetrics.recentProjects.map((project) => (
+                <View
+                  key={project.id}
                   style={[
-                    styles.expenseItem,
+                    styles.projectItem,
                     { backgroundColor: theme.backgroundDefault },
                   ]}
                 >
-                  <View
+                  <View style={styles.projectHeader}>
+                    <View style={{ flex: 1 }}>
+                      <ThemedText type="h4">{project.title}</ThemedText>
+                      <ThemedText
+                        type="small"
+                        style={{ color: theme.textSecondary }}
+                      >
+                        Revenue: ${project.revenue.toLocaleString()}
+                      </ThemedText>
+                    </View>
+                    <ThemedText
+                      type="h4"
+                      style={{
+                        color: project.profit >= 0 ? "#21b15a" : "#ef4444",
+                        fontWeight: "600",
+                      }}
+                    >
+                      ${project.profit.toLocaleString()}
+                    </ThemedText>
+                  </View>
+                  {project.expenseTotal > 0 && (
+                    <View style={styles.expenseInfo}>
+                      <ThemedText type="small" style={{ color: theme.textSecondary }}>
+                        Expenses: ${project.expenseTotal.toLocaleString()}
+                      </ThemedText>
+                    </View>
+                  )}
+                  {project.expenses.map((expense) => (
+                    <Pressable
+                      key={expense.id}
+                      onPress={() => deleteExpense(expense.id)}
+                      style={[
+                        styles.projectExpenseItem,
+                        { backgroundColor: theme.backgroundRoot },
+                      ]}
+                    >
+                      <View
+                        style={[
+                          styles.expenseBadge,
+                          { backgroundColor: getCategoryColor(expense.category) },
+                        ]}
+                      >
+                        <Feather name="minus" size={10} color="#fff" />
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <ThemedText type="small" numberOfLines={1}>
+                          {expense.description}
+                        </ThemedText>
+                      </View>
+                      <ThemedText
+                        type="small"
+                        style={{ color: "#ef4444", fontWeight: "600" }}
+                      >
+                        ${expense.amount.toLocaleString()}
+                      </ThemedText>
+                    </Pressable>
+                  ))}
+                  <Pressable
+                    onPress={() => {
+                      setSelectedProjectId(project.id);
+                      setExpenseModalVisible(true);
+                    }}
                     style={[
-                      styles.expenseBadge,
-                      { backgroundColor: getCategoryColor(expense.category) },
+                      styles.addExpenseButton,
+                      { borderColor: theme.primary },
                     ]}
                   >
-                    <Feather name="shopping-bag" size={12} color="#fff" />
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <ThemedText type="small" numberOfLines={1}>
-                      {expense.description}
-                    </ThemedText>
+                    <Feather name="plus" size={14} color={theme.primary} />
                     <ThemedText
                       type="small"
-                      style={{ color: theme.textSecondary, fontSize: 10 }}
+                      style={{ color: theme.primary, marginLeft: Spacing.sm }}
                     >
-                      {getCategoryLabel(expense.category)}
+                      Add Expense
                     </ThemedText>
-                  </View>
-                  <ThemedText
-                    type="h4"
-                    style={{ color: "#ef4444", fontWeight: "600" }}
-                  >
-                    ${expense.amount.toLocaleString()}
-                  </ThemedText>
-                </Pressable>
+                  </Pressable>
+                </View>
               ))}
             </View>
           ) : (
@@ -350,7 +432,7 @@ export default function CRMScreen() {
                 type="small"
                 style={{ color: theme.textSecondary, textAlign: "center" }}
               >
-                No expenses logged yet
+                No projects logged yet
               </ThemedText>
             </View>
           )}
@@ -361,24 +443,50 @@ export default function CRMScreen() {
         visible={modalVisible}
         onClose={() => {
           setModalVisible(false);
-          setNewAmount("");
-          setNewDescription("");
-          setNewCategory("tools");
+          setNewProjectName("");
+          setNewProjectAmount("");
         }}
-        title="Log Expense"
+        title="Log Project"
+      >
+        <FormInput
+          label="Project Name"
+          placeholder="e.g., Website Redesign"
+          value={newProjectName}
+          onChangeText={setNewProjectName}
+        />
+        <FormInput
+          label="Project Amount"
+          placeholder="0.00"
+          value={newProjectAmount}
+          onChangeText={setNewProjectAmount}
+          keyboardType="decimal-pad"
+        />
+        <Button onPress={handleAddProject}>Log Project</Button>
+      </Modal>
+
+      <Modal
+        visible={expenseModalVisible}
+        onClose={() => {
+          setExpenseModalVisible(false);
+          setNewExpenseAmount("");
+          setNewExpenseDescription("");
+          setNewExpenseCategory("tools");
+          setSelectedProjectId(null);
+        }}
+        title="Add Expense"
       >
         <FormInput
           label="Amount"
           placeholder="0.00"
-          value={newAmount}
-          onChangeText={setNewAmount}
+          value={newExpenseAmount}
+          onChangeText={setNewExpenseAmount}
           keyboardType="decimal-pad"
         />
         <FormInput
           label="Description"
           placeholder="What was this expense for?"
-          value={newDescription}
-          onChangeText={setNewDescription}
+          value={newExpenseDescription}
+          onChangeText={setNewExpenseDescription}
         />
         <ThemedText type="small" style={[styles.label, { color: theme.textSecondary }]}>
           Category
@@ -388,12 +496,12 @@ export default function CRMScreen() {
             <Chip
               key={cat.key}
               label={cat.label}
-              selected={newCategory === cat.key}
-              onPress={() => setNewCategory(cat.key)}
+              selected={newExpenseCategory === cat.key}
+              onPress={() => setNewExpenseCategory(cat.key)}
             />
           ))}
         </View>
-        <Button onPress={handleAddExpense}>Log Expense</Button>
+        <Button onPress={handleAddExpenseToProject}>Add Expense</Button>
       </Modal>
     </View>
   );
@@ -502,5 +610,39 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     gap: Spacing.sm,
     marginBottom: Spacing.lg,
+  },
+  projectItem: {
+    padding: Spacing.md,
+    borderRadius: BorderRadius.md,
+    marginBottom: Spacing.sm,
+  },
+  projectHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: Spacing.md,
+  },
+  expenseInfo: {
+    paddingBottom: Spacing.md,
+    marginBottom: Spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255,255,255,0.05)",
+  },
+  projectExpenseItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: Spacing.sm,
+    borderRadius: BorderRadius.sm,
+    marginBottom: Spacing.xs,
+    gap: Spacing.md,
+  },
+  addExpenseButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: Spacing.md,
+    borderRadius: BorderRadius.md,
+    borderWidth: 1,
+    marginTop: Spacing.md,
   },
 });

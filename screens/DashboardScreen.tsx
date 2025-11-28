@@ -101,13 +101,13 @@ export default function DashboardScreen() {
               title="Daily Bids"
               value={stats.dailyBids}
               icon="send"
-              color={theme.info}
+              color="#16adc8"
             />
             <StatCard
               title="Monthly Bids"
               value={stats.monthlyBids}
               icon="calendar"
-              color={theme.primary}
+              color="#16adc8"
             />
           </View>
           <View style={styles.statsRow}>
@@ -115,7 +115,7 @@ export default function DashboardScreen() {
               title="All-Time Bids"
               value={stats.allTimeBids}
               icon="archive"
-              color={theme.secondary}
+              color="#16adc8"
             />
             <StatCard
               title="Win Rate"

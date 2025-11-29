@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Image, Platform } from "react-native";
+import { StyleSheet, View, Platform } from "react-native";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -49,13 +49,8 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
       ]}
     >
       <View style={styles.header}>
-        <Image
-          source={require("../assets/images/icon.png")}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-        <ThemedText type="h3" style={styles.appName}>
-          FreelanceHub
+        <ThemedText type="h2" style={styles.appName}>
+          BarakahOps
         </ThemedText>
       </View>
       <DrawerItemList {...props} />
@@ -206,12 +201,7 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.xl,
     marginBottom: Spacing.sm,
   },
-  logo: {
-    width: 40,
-    height: 40,
-    borderRadius: BorderRadius.sm,
-  },
   appName: {
-    marginLeft: Spacing.md,
+    marginLeft: 0,
   },
 });

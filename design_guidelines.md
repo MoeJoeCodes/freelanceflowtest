@@ -1,5 +1,9 @@
 # Freelancer Automation Dashboard - Design Guidelines
 
+## Design Theme: Dark Futuristic with Electric Aqua Accents
+
+A personal productivity app featuring a dark-mode interface (#0C0F14) with electric aqua (#06B6D4) accents for an immersive, modern experience. The design prioritizes clarity, speed, and visual hierarchy with clean, bold typography.
+
 ## Architecture Decisions
 
 ### Authentication
@@ -87,7 +91,7 @@
 - **Components:**
   - Search bar (expandable from header icon)
   - Client cards in list: avatar circle, name (bold), contact info (email/phone icon + text), deal stage badge, revenue amount, arrow indicator for details
-  - Deal stage badges: color-coded (Lead: blue, Proposal Sent: purple, Negotiation: orange, Won: green, Lost: gray)
+  - Deal stage badges: color-coded (Lead: aqua #06B6D4, Proposal Sent: cyan #16adc8, Negotiation: orange #ffa554, Won: emerald #10B981, Lost: red #ef4444)
   - Tap card to navigate to client detail screen
   - Client detail screen: tabs for Deals, Projects, Notes
 
@@ -135,67 +139,108 @@
 ## Design System
 
 ### Color Palette
-**Light Mode:**
-- Primary: #6366F1 (Indigo - for CTAs, active states)
-- Secondary: #8B5CF6 (Purple - for accents)
-- Background: #FFFFFF
-- Surface: #F9FAFB (cards, elevated elements)
-- Text Primary: #111827
-- Text Secondary: #6B7280
-- Border: #E5E7EB
-- Success: #10B981 (won deals, completed)
-- Warning: #F59E0B (negotiation, waiting)
-- Error: #EF4444 (lost deals)
-- Info: #3B82F6 (leads, in progress)
 
-**Dark Mode:**
-- Primary: #818CF8 (lighter indigo)
-- Secondary: #A78BFA (lighter purple)
-- Background: #0F172A
-- Surface: #1E293B
-- Text Primary: #F1F5F9
-- Text Secondary: #94A3B8
-- Border: #334155
-- Success: #34D399
-- Warning: #FBBF24
-- Error: #F87171
-- Info: #60A5FA
+**Dark Mode (Primary Theme):**
+- **Background Base:** #0C0F14 (deep charcoal - primary background)
+- **Background Surface:** #151A22 (slightly lighter for cards and elevated elements)
+- **Background Secondary:** #1F2937 (even lighter for nested surfaces)
+- **Primary Accent:** #06B6D4 (electric aqua - buttons, active states, key metrics, icons)
+- **Secondary Accent:** #14B8A6 (teal - alternative accent for variety)
+- **Success:** #10B981 (emerald green - won deals, completed projects)
+- **Warning:** #FBBF24 (amber/gold - pending items, negotiations)
+- **Error:** #EF4444 (red - lost deals, critical alerts)
+- **Text Primary:** #F1F5F9 (near-white - main text)
+- **Text Secondary:** #94A3B8 (slate-gray - secondary text, labels)
+- **Border:** #1F2937 (subtle dark border)
+
+**Accent Color Variations (for emphasis):**
+- Cyan: #16adc8 (proposal sent stage)
+- Orange: #ffa554 (negotiation stage)
+- Yellow: #fbbf24 (metrics, warnings)
+
+**Light Mode (Optional):**
+- Primary: #6366F1 (Indigo)
+- Secondary: #8B5CF6 (Purple)
+- Background: #FFFFFF
+- Surface: #F9FAFB
 
 ### Typography
-- Headings: SF Pro Display (iOS), Roboto (Android) - Bold
-- Body: SF Pro Text (iOS), Roboto (Android) - Regular
-- Labels/Captions: System font - Medium
-- Font Sizes:
-  - H1: 28px (dashboard stats)
+- **Headings:** Bold, system font (SF Pro Display on iOS, Roboto on Android) - conveys futuristic confidence
+- **Body:** Regular weight, system font - clean and readable
+- **Labels/Captions:** Medium weight - emphasis without noise
+- **Font Sizes:**
+  - H1: 28px (dashboard stats, main titles)
   - H2: 22px (screen titles)
-  - H3: 18px (card titles)
-  - Body: 16px
-  - Caption: 14px
-  - Small: 12px (badges, labels)
+  - H3: 18px (section headers)
+  - H4: 16px (card titles, subsections)
+  - Body: 16px (main content text)
+  - Small: 14px (secondary information)
+  - Caption: 12px (badges, micro-labels)
 
 ### Spacing Scale
-- xs: 4px
-- sm: 8px
-- md: 12px
-- lg: 16px
-- xl: 24px
-- 2xl: 32px
-- 3xl: 48px
+- xs: 4px (minimal spacing)
+- sm: 8px (compact spacing)
+- md: 12px (standard spacing)
+- lg: 16px (generous spacing)
+- xl: 24px (major spacing)
+- 2xl: 32px (section spacing)
+- 3xl: 48px (large sections)
 
 ### Component Specifications
-- **Cards:** borderRadius: 12px, subtle border (1px), padding: lg
+- **Cards:** 
+  - Border radius: 12px
+  - Background: #151A22 (dark surface)
+  - Border: 1px #1F2937 (subtle dark border)
+  - Padding: lg (16px)
+  - Hover/Active: Background tint with aqua (#06B6D4) accent
+  
 - **Buttons:** 
-  - Primary: filled with primary color, borderRadius: 8px, height: 48px, bold text
-  - Secondary: outlined, same dimensions
-  - Visual feedback: opacity 0.7 on press
+  - Primary: Filled with aqua (#06B6D4), white text, border radius: 8px, height: 48px, bold weight
+  - Secondary: Outlined with aqua border, transparent background
+  - Hover/Active: Opacity 0.8 on press, slightly brighter aqua
+  - Icon Buttons: Aqua icon on dark background with touch feedback
+  
 - **Floating Action Button:** 
-  - Size: 56x56px, borderRadius: 28px, primary color
-  - Shadow: shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.10, shadowRadius: 2
-  - Icon: white, 24x24px
-- **Badges:** borderRadius: 12px, padding: xs horizontal, sm vertical, uppercase text, 12px font
-- **Input Fields:** borderRadius: 8px, height: 48px, border: 1px, padding: md
-- **Drawer (Desktop):** width: 240px, surface color, subtle right border
-- **Stat Cards:** 2:1 aspect ratio minimum, center-aligned content
+  - Size: 56x56px
+  - Border radius: 28px
+  - Background: Aqua (#06B6D4)
+  - Icon: White, 24x24px
+  - Shadow: shadowOffset {width: 0, height: 2}, shadowOpacity 0.10, shadowRadius 2
+  
+- **Badges & Tags:**
+  - Border radius: 12px
+  - Padding: xs horizontal, sm vertical
+  - Text: Uppercase, 12px bold, white on colored background
+  - Colors: Aqua for active, emerald for success, orange for warning, red for error
+  
+- **Input Fields:**
+  - Border radius: 8px
+  - Height: 48px
+  - Border: 1px #1F2937 (dark border)
+  - Background: #151A22
+  - Text: #F1F5F9
+  - Focus: Aqua border highlight, subtle glow
+  - Padding: md (12px)
+  
+- **Drawer (Desktop/Mobile):**
+  - Width: 240px (desktop)
+  - Background: #0C0F14 (same as main background)
+  - Icons: 24px, white by default, aqua when active
+  - Labels: Small text, secondary gray by default, white when active
+  - Subtle right border: 1px #1F2937
+  
+- **Stat Cards:**
+  - Aspect ratio: 2:1 minimum
+  - Center-aligned content
+  - Large number in aqua (#06B6D4) for emphasis
+  - Trend indicators: Green (up), Red (down)
+
+### Visual Hierarchy & Emphasis
+- **Primary Actions:** Aqua buttons (#06B6D4) - immediately draws attention
+- **Key Metrics:** Display numbers in aqua (#06B6D4) to highlight important data
+- **Icons:** Use aqua (#06B6D4) for active states and primary actions
+- **Secondary Information:** Use text-secondary (#94A3B8) to de-emphasize
+- **Contrast:** High contrast between text and background for readability in dark mode
 
 ### Required Assets
 1. **Avatar Presets (3):**
@@ -210,9 +255,15 @@
 
 ### Accessibility
 - Minimum touch target: 44x44px
-- Color contrast ratio: 4.5:1 for text, 3:1 for UI elements
+- Color contrast ratio: 4.5:1 for text, 3:1 for UI elements (maintained with dark theme + aqua accents)
 - All icons paired with labels in navigation
 - Screen reader labels for all interactive elements
 - Dynamic type support (respect system font size settings)
-- Focus indicators for keyboard navigation (desktop)
+- Focus indicators for keyboard navigation (desktop) - aqua (#06B6D4) outline
 - Status badges use both color AND text/icons (not color alone)
+
+### Animation & Motion
+- **Spring-like animations:** Subtle spring effects on interactive elements (buttons, FAB)
+- **Fade transitions:** Between screens and state changes
+- **Hover feedback:** Slight scale and opacity change on interactive elements
+- **Touch feedback:** Immediate visual response to presses

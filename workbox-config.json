@@ -1,0 +1,14 @@
+{
+  "swSrc": "public/service-worker.js",
+  "swDest": "dist/service-worker.js",
+  "globDirectory": "dist/",
+  "globPatterns": [
+    "**/*.{js,css,html,png,jpg,jpeg,svg,gif,webp,woff,woff2,ttf,eot,json}"
+  ],
+  "globIgnores": [
+    "../node_modules/**/*",
+    "**/*.map"
+  ],
+  "maximumFileSizeToCacheInBytes": 5242880,
+  "injectionPoint": "self.__WB_MANIFEST"
+}

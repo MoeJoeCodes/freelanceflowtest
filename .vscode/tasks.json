@@ -1,0 +1,117 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Start Expo Server",
+			"type": "shell",
+			"command": "npx expo start",
+			"isBackground": true,
+			"group": "none"
+		},
+		{
+			"label": "Install Dependencies",
+			"type": "shell",
+			"command": "npm install",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Start Expo Server",
+			"type": "shell",
+			"command": "npm start",
+			"isBackground": true,
+			"group": "none"
+		},
+		{
+			"label": "Clean Install Dependencies",
+			"type": "shell",
+			"command": "rm -r node_modules && npm install",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Clean Install",
+			"type": "shell",
+			"command": "Remove-Item -Recurse -Force node_modules -ErrorAction SilentlyContinue; npm install",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Clean Cache and Reinstall",
+			"type": "shell",
+			"command": "npm cache clean --force; npm install",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Fix Audit and Start Server",
+			"type": "shell",
+			"command": "npm audit fix; npm start",
+			"isBackground": true,
+			"group": "none"
+		},
+		{
+			"label": "Install EAS CLI",
+			"type": "shell",
+			"command": "npm install -g eas-cli",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Install Workbox CLI",
+			"type": "shell",
+			"command": "npm install --save-dev workbox-cli",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Install PWA Tools",
+			"type": "shell",
+			"command": "npm install --save-dev http-server workbox-cli",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build PWA",
+			"type": "shell",
+			"command": "npm run pwa 2>&1",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build PWA",
+			"type": "shell",
+			"command": "npm run pwa 2>&1",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build PWA",
+			"type": "shell",
+			"command": "npm run pwa 2>&1",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Start PWA Local Server",
+			"type": "shell",
+			"command": "npm run web:serve",
+			"isBackground": true,
+			"group": "none"
+		},
+		{
+			"label": "Start Simple HTTP Server",
+			"type": "shell",
+			"command": "npx http-server dist -p 8080 -c-1",
+			"isBackground": true,
+			"group": "none"
+		},
+		{
+			"label": "Start HTTP Server Port 3000",
+			"type": "shell",
+			"command": "npx http-server dist -p 3000 -c-1",
+			"isBackground": true,
+			"group": "none"
+		}
+	]
+}

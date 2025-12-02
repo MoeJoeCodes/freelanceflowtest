@@ -8,6 +8,9 @@
     "android": "npx expo start --android",
     "ios": "npx expo start --ios",
     "web": "npx expo start --web",
+    "web:build": "npx expo export --platform web && workbox injectManifest workbox-config.json",
+    "web:serve": "npm run web:build && npx http-server dist -p 8080",
+    "pwa": "npm run web:build",
     "lint": "npx expo lint",
     "check:format": "prettier --check \"**/*.{js,ts,tsx,css,json}\"",
     "format": "prettier --write \"**/*.{js,ts,tsx,css,json}\""
@@ -52,8 +55,10 @@
     "eslint-config-expo": "~10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
+    "http-server": "^14.1.1",
     "prettier": "3.6.2",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "workbox-cli": "^7.4.0"
   },
   "private": true
 }

@@ -10,7 +10,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.freelancehub.app"
+      "bundleIdentifier": "com.freelancehub.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -25,7 +28,21 @@
     },
     "web": {
       "output": "single",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "buildDir": "dist",
+      "bundler": "metro",
+      "pwa": {
+        "name": "BarakahOps",
+        "shortName": "BarakahOps",
+        "description": "Freelancer automation dashboard",
+        "startUrl": "/",
+        "scope": "/",
+        "display": "standalone",
+        "orientation": "portrait-primary",
+        "themeColor": "#6366F1",
+        "backgroundColor": "#FFFFFF",
+        "manifest": "./public/manifest.json"
+      }
     },
     "plugins": [
       [
@@ -44,6 +61,12 @@
     ],
     "experiments": {
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e5bbb41a-f1a4-49ce-a043-47ac9e7454c0"
+      }
+    },
+    "owner": "moejoe03"
   }
 }

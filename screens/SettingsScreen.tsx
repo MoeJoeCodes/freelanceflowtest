@@ -10,11 +10,8 @@ import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius } from "@/constants/theme";
 import { useDataStore } from "@/store/dataStore";
 
-const avatarImages = [
-  { uri: require("../assets/images/avatars/avatar-geometric.png") },
-  { uri: require("../assets/images/avatars/avatar-workspace.png") },
-  { uri: require("../assets/images/avatars/avatar-developer.png") },
-];
+// Avatar colors instead of images
+const avatarColors = ["#6366F1", "#ec4899", "#06b6d4", "#f59e0b", "#10b981"];
 
 export default function SettingsScreen() {
   const { theme, isDark } = useTheme();
@@ -60,17 +57,20 @@ export default function SettingsScreen() {
             style={[styles.sectionContent, { backgroundColor: theme.backgroundDefault }]}
           >
             <View style={styles.avatarSection}>
-              <Image
-                source={avatarImages[userProfile.avatarIndex]}
-                style={styles.currentAvatar}
-                resizeMode="cover"
-              />
+              <View
+                style={[
+                  styles.currentAvatar,
+                  { backgroundColor: avatarColors[userProfile.avatarIndex] },
+                ]}
+              >
+                <Feather name="user" size={32} color="white" />
+              </View>
               <View style={styles.avatarOptions}>
                 <ThemedText type="small" style={{ color: theme.textSecondary }}>
                   Choose avatar:
                 </ThemedText>
                 <View style={styles.avatarRow}>
-                  {avatarImages.map((img, index) => (
+                  {avatarColors.map((color, index) => (
                     <Pressable
                       key={index}
                       onPress={() => handleSelectAvatar(index)}
@@ -83,7 +83,12 @@ export default function SettingsScreen() {
                         { opacity: pressed ? 0.7 : 1 },
                       ]}
                     >
-                      <Image source={img} style={styles.avatarThumb} resizeMode="cover" />
+                      <View
+                        style={[
+                          styles.avatarThumb,
+                          { backgroundColor: color },
+                        ]}
+                      />
                     </Pressable>
                   ))}
                 </View>

@@ -14,11 +14,8 @@ import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius } from "@/constants/theme";
 import { Developer } from "@/store/dataStore";
 
-const avatarImages = [
-  { uri: require("../assets/images/avatars/avatar-geometric.png") },
-  { uri: require("../assets/images/avatars/avatar-workspace.png") },
-  { uri: require("../assets/images/avatars/avatar-developer.png") },
-];
+// Avatar colors instead of images
+const avatarColors = ["#6366F1", "#ec4899", "#06b6d4", "#f59e0b", "#10b981"];
 
 interface DeveloperCardProps {
   developer: Developer;
@@ -50,7 +47,7 @@ export function DeveloperCard({ developer, onPress }: DeveloperCardProps) {
     scale.value = withSpring(1, springConfig);
   };
 
-  const avatarIndex = developer.avatar !== undefined ? developer.avatar % 3 : 0;
+  const avatarIndex = developer.avatar !== undefined ? developer.avatar % avatarColors.length : 0;
 
   return (
     <AnimatedPressable
@@ -63,11 +60,14 @@ export function DeveloperCard({ developer, onPress }: DeveloperCardProps) {
         animatedStyle,
       ]}
     >
-      <Image
-        source={avatarImages[avatarIndex]}
-        style={styles.avatar}
-        resizeMode="cover"
-      />
+      <View
+        style={[
+          styles.avatar,
+          { backgroundColor: avatarColors[avatarIndex] },
+        ]}
+      >
+        <Feather name="user" size={24} color="white" />
+      </View>
       <ThemedText type="h4" numberOfLines={1} style={styles.name}>
         {developer.name}
       </ThemedText>

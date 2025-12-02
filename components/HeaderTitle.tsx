@@ -1,5 +1,6 @@
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
 import { ThemedText } from "@/components/ThemedText";
 import { Spacing } from "@/constants/theme";
@@ -11,11 +12,7 @@ interface HeaderTitleProps {
 export function HeaderTitle({ title }: HeaderTitleProps) {
   return (
     <View style={styles.container}>
-      <Image
-        source={{ uri: require("../assets/images/icon.png") }}
-        style={styles.icon}
-        resizeMode="contain"
-      />
+      <Feather name="briefcase" size={24} color="#6366F1" />
       <ThemedText style={styles.title}>{title}</ThemedText>
     </View>
   );

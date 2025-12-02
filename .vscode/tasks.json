@@ -112,6 +112,90 @@
 			"command": "npx http-server dist -p 3000 -c-1",
 			"isBackground": true,
 			"group": "none"
+		},
+		{
+			"label": "Fix Deprecated Packages",
+			"type": "shell",
+			"command": "npm audit fix --force",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Update Deprecated Packages",
+			"type": "shell",
+			"command": "npm install --save-dev @jridgewell/sourcemap-codec rimraf@4 glob@9",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Clean Cache and Reinstall",
+			"type": "shell",
+			"command": "npm cache clean --force; npm install",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Check Build for Warnings",
+			"type": "shell",
+			"command": "npm run pwa 2>&1 | grep -E \"(warn|error|deprecated)\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build and Check Warnings",
+			"type": "shell",
+			"command": "npm run pwa 2>&1 | Select-String -Pattern \"warn|error|deprecated\"",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build PWA Final",
+			"type": "shell",
+			"command": "npm run pwa",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build PWA Fixed",
+			"type": "shell",
+			"command": "npm run pwa",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Check Workbox Version",
+			"type": "shell",
+			"command": "npx workbox --version",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build PWA Final",
+			"type": "shell",
+			"command": "npm run pwa",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Workbox Help",
+			"type": "shell",
+			"command": "npx workbox --help",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build PWA Final",
+			"type": "shell",
+			"command": "npm run pwa",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build PWA Simplified",
+			"type": "shell",
+			"command": "npm run pwa",
+			"isBackground": false,
+			"group": "build"
 		}
 	]
 }

@@ -8,8 +8,8 @@
     "android": "npx expo start --android",
     "ios": "npx expo start --ios",
     "web": "npx expo start --web",
-    "web:build": "npx expo export --platform web && workbox injectManifest workbox-config.json",
-    "web:serve": "npm run web:build && npx http-server dist -p 8080",
+    "web:build": "npx expo export --platform web",
+    "web:serve": "npm run web:build && npx http-server dist -p 8080 -c-1",
     "pwa": "npm run web:build",
     "lint": "npx expo lint",
     "check:format": "prettier --check \"**/*.{js,ts,tsx,css,json}\"",
@@ -49,16 +49,19 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
+    "@jridgewell/sourcemap-codec": "^1.5.5",
     "@types/react": "~19.1.0",
     "babel-plugin-module-resolver": "^5.0.2",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
+    "glob": "^9.3.5",
     "http-server": "^14.1.1",
     "prettier": "3.6.2",
+    "rimraf": "^4.4.1",
     "typescript": "~5.9.2",
-    "workbox-cli": "^7.4.0"
+    "workbox-cli": "^2.1.3"
   },
   "private": true
 }

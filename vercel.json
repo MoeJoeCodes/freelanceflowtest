@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run pwa",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}

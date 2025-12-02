@@ -196,6 +196,13 @@
 			"command": "npm run pwa",
 			"isBackground": false,
 			"group": "build"
+		},
+		{
+			"label": "Rebuild for Vercel",
+			"type": "shell",
+			"command": "npm run pwa",
+			"isBackground": false,
+			"group": "build"
 		}
 	]
 }
